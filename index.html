@@ -9,7 +9,6 @@
   <meta name="viewport"
     content="width=device-width,user-scalable=no,initial-scale=1, minimum-scale=1,maximum-scale=1, viewport-fit=cover"/>
 
-  <!--https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html-->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="format-detection" content="telephone=no">
@@ -30,15 +29,10 @@
   <meta name="screen-orientation" content="<%=orientation%>"/>
   <meta name="x5-orientation" content="<%=orientation%>">
 
-  <!--fix fireball/issues/3568 -->
-  <!--<meta name="browsermode" content="application">-->
   <meta name="x5-page-mode" content="app">
 
-  <!--<link rel="apple-touch-icon" href=".png" />-->
-  <!--<link rel="apple-touch-icon-precomposed" href=".png" />-->
-  <!-- <script src="https://cdn.rawgit.com/inexorabletash/polyfill/v0.1.42/polyfill.min.js"></script> -->
+
   <link rel="stylesheet" type="text/css" href="style-mobile.css"/>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/swipe-up@1.2.16/dist/swipe-up.min.js"></script>
 </head>
 <body>
   <canvas id="GameCanvas" oncontextmenu="event.preventDefault()" tabindex="0"></canvas>
@@ -66,36 +60,9 @@
 <script src="main.js" charset="utf-8"></script>
 
 <script type="text/javascript">
-  var uaGame = navigator.userAgent;
-  var isCocCocIPhone = uaGame.indexOf('coc_coc_browser')  > -1 && (uaGame.indexOf('iPhone')  > -1 || uaGame.indexOf('iPad')  > -1);
 
 (function () {
-    // open web debugger console
-    if (typeof VConsole !== 'undefined') {
-        window.vConsole = new VConsole();
-    }
-    var splash = document.getElementById('splash');
-    var splashGamePortrait = document.getElementById('splashGamePortrait');
-    var isPortraitGame = window._CCSettings.orientation === "portrait";
-    var isAutoOrientationGame = window._CCSettings.orientation === "";
-
-    var isMobile = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i) != null;
-    var ratio = window.innerHeight/window.innerWidth*50;
-    splash.classList.remove("splashPortrait");
-    if(splashGamePortrait) {
-        splashGamePortrait.classList.remove("splashPortrait");
-    }
-    if(window.innerWidth < window.innerHeight && isMobile && !isPortraitGame){
-        ratio = window.innerWidth/window.innerHeight*50;
-        splash.classList.add("splashPortrait");
-        splash.style.transformOrigin = ratio+'% 50%';
-    }else if(window.innerWidth > window.innerHeight && isMobile && (isPortraitGame || isAutoOrientationGame)){
-        ratio = window.innerWidth/window.innerHeight*50;
-        if(splashGamePortrait) {
-            splashGamePortrait.classList.add("splashPortrait");
-            splashGamePortrait.style.transformOrigin = ratio+'% 50%';
-        }
-    }
+   
     var cocos2d = document.createElement('script');
     cocos2d.async = true;
     var fullURL = window.location.href;
@@ -110,15 +77,6 @@
     document.body.appendChild(cocos2d);
 
 })();
-</script>
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-151522596-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-151522596-1');
 </script>
 </body>
 </html>
