@@ -9,6 +9,7 @@
   <meta name="viewport"
     content="width=device-width,user-scalable=no,initial-scale=1, minimum-scale=1,maximum-scale=1, viewport-fit=cover"/>
 
+  <!--https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html-->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="format-detection" content="telephone=no">
@@ -29,10 +30,15 @@
   <meta name="screen-orientation" content="<%=orientation%>"/>
   <meta name="x5-orientation" content="<%=orientation%>">
 
+  <!--fix fireball/issues/3568 -->
+  <!--<meta name="browsermode" content="application">-->
   <meta name="x5-page-mode" content="app">
 
-
+  <!--<link rel="apple-touch-icon" href=".png" />-->
+  <!--<link rel="apple-touch-icon-precomposed" href=".png" />-->
+  <!-- <script src="https://cdn.rawgit.com/inexorabletash/polyfill/v0.1.42/polyfill.min.js"></script> -->
   <link rel="stylesheet" type="text/css" href="style-mobile.css"/>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/swipe-up@1.2.16/dist/swipe-up.min.js"></script>
 </head>
 <body>
   <canvas id="GameCanvas" oncontextmenu="event.preventDefault()" tabindex="0"></canvas>
@@ -60,13 +66,21 @@
 <script src="main.js" charset="utf-8"></script>
 
 <script type="text/javascript">
+  var uaGame = navigator.userAgent;
+  var isCocCocIPhone = uaGame.indexOf('coc_coc_browser')  > -1 && (uaGame.indexOf('iPhone')  > -1 || uaGame.indexOf('iPad')  > -1);
+  if (window.buildTime && uaGame.indexOf(' UCBrowser/') === -1 && !isCocCocIPhone) {
+    var buildTime = parseInt(window.buildTime) + 15552000000;
+    if (new Date().getTime() < buildTime) {
+      document.write('<script src="https://browser.sentry-cdn.com/6.13.2/bundle.min.js" integrity="sha384-fcgCrdIqrZ6d6fA8EfCAfdjgN9wXDp0EOkueSo3bKyI3WM4tQCE0pOA/kJoqHYoI" crossorigin="anonymous"><\/script>');
+    }
+  }
 
 (function () {
    
     var cocos2d = document.createElement('script');
     cocos2d.async = true;
     var fullURL = window.location.href;
-    cocos2d.src = 'cocos2d-js.js';
+    cocos2d.src = 'cocos2d-js-min.js';
 
     var engineLoaded = function () {
         document.body.removeChild(cocos2d);
